@@ -30,4 +30,4 @@ function parseURL(url) {
     query: obj,
     origin: origin,
   };
-},
+}
