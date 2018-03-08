@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>不同个税起征点下税前税后收入的对比</title>
+</head>
+<body>
+  <h1>不同个税起征点下税前税后收入的对比</h1>
+  <ul>
+    <li>X轴：税前收入</li>
+    <li>Y轴：税后收入</li>
+    <li>折线：不同的个税起征点下，税前收入与税后到手所得的关系。</li>
+  </ul>
+  <div id="main-chart" style="width: 100%;height:600px;"></div>
+  <script type="text/javascript" src="./echarts.common.min.js"></script>
+  <script type="text/javascript" src="./salary-tax.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+(function() {
+  // 税前收入表
+  const data = [];
+
+  for (var i = 10000; i <= 40000; i += 1000) {
+    data.push(i);
+  }
+
+  var myChart = echarts.init(document.getElementById('main-chart'));
+
+  const seriesData = [
+    {base: 3000, desc: '起征点3500元'},
+    {base: 6000, desc: '6K'},
+    {base: 8000, desc: '8K'},
+    {base: 10000, desc: '10K'},
+    {base: 12000, desc: '12K'},
+    {base: 14000, desc: '14K'},
+  ];
+
+  // 指定图表的配置项和数据
+  var option = {
+    title: {
+      text: ''
+    },
+    tooltip: {
+      trigger: 'axis'
+    },
+    legend: {
+      data: seriesData.map(item => item.desc)
+    },
+    xAxis: {
+      name: '税前收入（元）',
+      data: data,
+    },
+    yAxis: {
+      name: '税后到手所得（元）',
+      min: 4000,
+    },
+    series: seriesData.map(item => ({
+      name: item.desc,
+      type: 'line',
+      data: data.map(i => taxCalculator({base: item.base, income: i, showConsoles: false}).real_income)
+    })),
+  };
+
+  // 使用刚指定的配置项和数据显示图表。
+  myChart.setOption(option);
+})();
+</script>
