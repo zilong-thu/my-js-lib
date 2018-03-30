@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/zilong-thu/my-js-lib/issues"
   },
-  "homepage": "https://github.com/zilong-thu/my-js-lib#readme"
+  "homepage": "https://github.com/zilong-thu/my-js-lib#readme",
+  "dependencies": {
+    "lie": "^3.3.0"
+  }
 }
